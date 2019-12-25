@@ -1,4 +1,4 @@
-# calapp-admin-ui
+# calcapp-admin-ui
 
 ## Project setup
 ```
