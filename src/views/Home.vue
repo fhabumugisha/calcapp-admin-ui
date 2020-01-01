@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-   
-    <Dashboard msg="Welcome to Your Vue.js App" />
+    <Dashboard msg="Welcome to Calapp Admin UI Vue.js App" />
   </div>
 </template>
 
