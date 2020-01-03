@@ -21,11 +21,14 @@
       :options.sync="options"
       :server-items-length="totalProjects"
     >
+      <template v-slot:item.totalAmount="{ item }">
+      {{ item.totalAmount | currency}}
+    </template>
+
       <template v-slot:item.action="{ item }">
-        <router-link :to="{ name: 'project-detail', params: { id: item.id } }">
-          <v-icon small>
-            mdi-eye
-          </v-icon>
+        <router-link  :to="{ name: 'project-detail', params: { id: item.id } }">          
+          
+         <v-icon>  mdi-eye</v-icon>
         </router-link>
       </template>
     </v-data-table>
