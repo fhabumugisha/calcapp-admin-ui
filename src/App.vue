@@ -49,22 +49,11 @@
     <v-content>
       <v-container fluid>
         <router-view />
-       
       </v-container>
-     
     </v-content>
-   
-    
- 
-  <v-footer
-       app
-     absolute
-    color="primary lighten-1"
-    >
-      <v-col
-        class="text-center"
-        cols="12"
-      >
+
+    <v-footer app absolute color="primary lighten-1">
+      <v-col class="text-center" cols="12">
         {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
       </v-col>
     </v-footer>
@@ -84,13 +73,13 @@ export default {
       { icon: "mdi-contacts", text: "Users", path: "/users" },
       { icon: "mdi-at", text: "About", path: "/about" }
     ],
-     icons: [
-        'fab fa-facebook',
-        'fab fa-twitter',
-        'fab fa-google-plus',
-        'fab fa-linkedin',
-        'fab fa-instagram',
-      ],
+    icons: [
+      "fab fa-facebook",
+      "fab fa-twitter",
+      "fab fa-google-plus",
+      "fab fa-linkedin",
+      "fab fa-instagram"
+    ]
   })
 };
 </script>

@@ -60,7 +60,7 @@ export default {
       userToDelete: null
     };
   },
- 
+
   async mounted() {
     await this.getDataFromApi();
   },
@@ -78,8 +78,6 @@ export default {
       this.loading = false;
     },
     askToDelete(user) {
-      console.log("askToDelete");
-
       this.userToDelete = user;
       this.showModal = true;
     },
@@ -89,7 +87,6 @@ export default {
     async deleteUser() {
       this.closeModal();
       if (this.userToDelete) {
-        console.log("deleteuser", this.userToDelete);
         await usersData.deleteUser(this.userToDelete.id);
       }
       await this.getDataFromApi();

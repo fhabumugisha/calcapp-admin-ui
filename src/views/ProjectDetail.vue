@@ -10,19 +10,39 @@
             <v-card ref="form">
               <v-card-title>Project Details #{{ id }}</v-card-title>
               <v-card-text>
-                <v-text-field v-model="project.title" label="Title" outlined readonly></v-text-field>
-                <v-text-field v-model="project.type" label="Type" outlined readonly></v-text-field>
-                <v-text-field v-model="project.createdAt" label="Created at" outlined readonly></v-text-field>
-                <v-textarea outlined label="Description" v-model="project.description"></v-textarea>
+                <v-text-field
+                  v-model="project.title"
+                  label="Title"
+                  outlined
+                  readonly
+                ></v-text-field>
+                <v-text-field
+                  v-model="project.type"
+                  label="Type"
+                  outlined
+                  readonly
+                ></v-text-field>
+                <v-text-field
+                  v-model="project.createdAt"
+                  label="Created at"
+                  outlined
+                  readonly
+                ></v-text-field>
+                <v-textarea
+                  outlined
+                  label="Description"
+                  v-model="project.description"
+                ></v-textarea>
                 <v-divider></v-divider>
                 <div v-if="project.type === 'Budget'">
                   <h2>Categories</h2>
                   <v-expansion-panels focusable>
-                    <v-expansion-panel v-for="(category, i) in project.categories" :key="i">
+                    <v-expansion-panel
+                      v-for="(category, i) in project.categories"
+                      :key="i"
+                    >
                       <v-expansion-panel-header>
-                        {{
-                        category.title
-                        }}
+                        {{ category.title }}
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
                         Items : {{ category.items.length }}
@@ -71,7 +91,9 @@
                 </div>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="primary" dark to="/projects">Return to projects</v-btn>
+                <v-btn color="primary" dark to="/projects"
+                  >Return to projects</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-col>
