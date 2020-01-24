@@ -29,6 +29,11 @@ const getUsers = async function() {
   }
 };
 
+const deleteUser = async function(userId) {
+  const response = await axios.delete(`${BASE_API_URI}/users/${userId}`);
+
+}
+
 const parseListResponse = response => {
   if (response.status !== 200) throw Error(response.message);
   if (!response.data) return [];
@@ -39,5 +44,6 @@ const parseListResponse = response => {
   return list;
 };
 export const usersData = {
-  getUsers
+  getUsers,
+  deleteUser
 };

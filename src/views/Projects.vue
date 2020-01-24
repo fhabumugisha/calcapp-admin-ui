@@ -18,18 +18,18 @@
       :headers="headers"
       :items="projects"
       :search="search"
-      :options.sync="options"
-      :server-items-length="totalProjects"
+      
     >
       <template v-slot:item.totalAmount="{ item }">
       {{ item.totalAmount | currency}}
     </template>
+   
 
       <template v-slot:item.action="{ item }">
-        <router-link  :to="{ name: 'project-detail', params: { id: item.id } }">          
-          
-         <v-icon>  mdi-eye</v-icon>
-        </router-link>
+        <v-btn text icon color="indigo" :to="{ name: 'project-detail', params: { id: item.id } }">
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+      
       </template>
     </v-data-table>
   </v-card>
@@ -52,7 +52,7 @@ export default {
         { text: "Title", value: "title" },
         { text: "Type", value: "type" },
         { text: "Description", sortable: false, value: "description" },
-        { text: "Items", sortable: false, value: "items", filterable: false },
+        { text: "Items", sortable: false, value: "items.length", filterable: false },
         {
           text: "Categories",
           sortable: false,

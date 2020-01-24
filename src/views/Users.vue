@@ -18,24 +18,30 @@
       :headers="headers"
       :items="users"
       :search="search"
-      :options.sync="options"
-      :server-items-length="totalUsers"
     >
       <template v-slot:item.action="{ item }">
-        <v-icon small @click="deleteItem(item)">
-          mdi-delete
-        </v-icon>
+        <v-icon small @click="askToDelete(item)">mdi-delete</v-icon>
       </template>
     </v-data-table>
+    <Modal
+      :message="modalMessage"
+      :isOpen="showModal"
+      @handleNo="closeModal"
+      @handleYes="deleteUser"
+    ></Modal>
   </v-card>
 </template>
 
 <script>
 import { usersData } from "@/shared";
+import Modal from "@/components/Modal.vue";
+
 export default {
   name: "Users",
   data() {
     return {
+      dialog: false,
+
       totalUsers: 0,
       users: [],
       loading: false,
@@ -48,17 +54,13 @@ export default {
         { text: "Created at", value: "createdAt" },
         { text: "UpdatedAt", value: "updatedAt" },
         { text: "Actions", value: "action", sortable: false }
-      ]
+      ],
+      message: "",
+      showModal: false,
+      userToDelete: null
     };
   },
-  watch: {
-    options: {
-      async handler() {
-        await this.getDataFromApi();
-      },
-      deep: true
-    }
-  },
+ 
   async mounted() {
     await this.getDataFromApi();
   },
@@ -74,7 +76,36 @@ export default {
       this.totalUsers = totalElements;
       this.loadingText = "";
       this.loading = false;
+    },
+    askToDelete(user) {
+      console.log("askToDelete");
+
+      this.userToDelete = user;
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    async deleteUser() {
+      this.closeModal();
+      if (this.userToDelete) {
+        console.log("deleteuser", this.userToDelete);
+        await usersData.deleteUser(this.userToDelete.id);
+      }
+      await this.getDataFromApi();
     }
+  },
+  computed: {
+    modalMessage() {
+      const name =
+        this.userToDelete && this.userToDelete.email
+          ? this.userToDelete.email
+          : "";
+      return `Would you like to delete ${name} ?`;
+    }
+  },
+  components: {
+    Modal
   }
 };
 </script>
