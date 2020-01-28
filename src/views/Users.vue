@@ -19,6 +19,12 @@
       :items="users"
       :search="search"
     >
+    <template v-slot:item.createdAt="{ item }">
+          <span>{{ item.createdAt | moment("DD/MM/YYYY") }}</span>
+      </template>
+<template v-slot:item.updatedAt="{ item }">
+          <span>{{ item.updatedAt | moment("DD/MM/YYYY") }}</span>
+      </template>
       <template v-slot:item.action="{ item }">
         <v-icon small @click="askToDelete(item)">mdi-delete</v-icon>
       </template>
@@ -52,7 +58,7 @@ export default {
         { text: "Email", value: "email" },
 
         { text: "Created at", value: "createdAt" },
-        { text: "UpdatedAt", value: "updatedAt" },
+        { text: "Updated at", value: "updatedAt" },
         { text: "Actions", value: "action", sortable: false }
       ],
       message: "",
@@ -71,9 +77,11 @@ export default {
       this.loading = true;
       this.items = [];
       this.loadingText = "Getting the users, please be patient";
-      const { content, totalElements } = await usersData.getUsers();
-      this.users = content;
-      this.totalUsers = totalElements;
+      const { users, totalItems } = await usersData.getUsers();
+      this.users = users;
+      console.log('users', this.users);
+      
+      this.totalUsers = totalItems;
       this.loadingText = "";
       this.loading = false;
     },
@@ -87,7 +95,7 @@ export default {
     async deleteUser() {
       this.closeModal();
       if (this.userToDelete) {
-        await usersData.deleteUser(this.userToDelete.id);
+        await usersData.deleteUser(this.userToDelete._id);
       }
       await this.getDataFromApi();
     }

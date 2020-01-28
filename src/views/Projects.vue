@@ -23,12 +23,20 @@
         {{ item.totalAmount | currency }}
       </template>
 
+      <template v-slot:item.createdAt="{ item }">
+          <span>{{ item.createdAt | moment("DD/MM/YYYY") }}</span>
+      </template>
+<template v-slot:item.updatedAt="{ item }">
+          <span>{{ item.updatedAt | moment("DD/MM/YYYY") }}</span>
+      </template>
+      
+
       <template v-slot:item.action="{ item }">
         <v-btn
           text
           icon
           color="indigo"
-          :to="{ name: 'project-detail', params: { id: item.id } }"
+          :to="{ name: 'project-detail', params: { id: item._id } }"
         >
           <v-icon>mdi-eye</v-icon>
         </v-btn>
@@ -92,9 +100,9 @@ export default {
       this.items = [];
       this.loadingText = "Getting the projects, please be patient";
       try {
-        const { content, totalElements } = await projectsData.getProjects();
-        this.projects = content;
-        this.totalProjects = totalElements;
+        const { projects, totalItems } = await projectsData.getProjects();
+        this.projects = projects;
+        this.totalProjects = totalItems;
       } catch (error) {
         this.error = error;
       } finally {

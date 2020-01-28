@@ -134,7 +134,8 @@ export default {
       this.project = projectsData.getProject(this.id);
       this.loading = false;
       try {
-        this.project = await projectsData.getProject(this.id);
+        const { project} = await projectsData.getProject(this.id);
+        this.project  = project
       } catch (error) {
         this.error = error;
       } finally {
