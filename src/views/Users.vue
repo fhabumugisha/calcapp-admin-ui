@@ -79,7 +79,7 @@ export default {
       this.loadingText = "Getting the users, please be patient";
       const { users, totalItems } = await usersData.getUsers();
       this.users = users;
-      console.log('users', this.users);
+      //console.log('users', this.users);
       
       this.totalUsers = totalItems;
       this.loadingText = "";
