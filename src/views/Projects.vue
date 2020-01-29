@@ -46,13 +46,18 @@
 </template>
 
 <script>
-import { projectsData } from "@/shared";
+//import { projectsData } from "@/shared";
+
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapGetters, mapActions } = createNamespacedHelpers('projects');
+
 export default {
   name: "Projects",
   data() {
     return {
-      totalProjects: 0,
-      projects: [],
+      //totalProjects: 0,
+     // projects: [],
       loading: false,
       options: {},
       search: "",
@@ -81,18 +86,12 @@ export default {
       ]
     };
   },
-  watch: {
-    options: {
-      async handler() {
-        await this.getDataFromApi();
-      },
-      deep: true
-    }
-  },
+  
   async mounted() {
     await this.getDataFromApi();
   },
   methods: {
+    ...mapActions( ['getProjectsAction']),
     async getDataFromApi() {
       // console.log("options : ", this.options);
 
@@ -100,9 +99,10 @@ export default {
       this.items = [];
       this.loadingText = "Getting the projects, please be patient";
       try {
-        const { projects, totalItems } = await projectsData.getProjects();
+        /* const { projects, totalItems } = await projectsData.getProjects();
         this.projects = projects;
-        this.totalProjects = totalItems;
+        this.totalProjects = totalItems; */
+        this.getProjectsAction();
       } catch (error) {
         this.error = error;
       } finally {
@@ -110,6 +110,9 @@ export default {
         this.loading = false;
       }
     }
+  },
+  computed: {
+    ...mapGetters( { projects: 'projects', totalElements : 'totalElements' }),
   }
 };
 </script>

@@ -8,7 +8,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="8" lg="6">
             <v-card ref="form">
-              <v-card-title>Project Details #{{ id }}</v-card-title>
+              <v-card-title>Project Details #{{ project.id }}</v-card-title>
               <v-card-text>
                 <v-text-field
                   v-model="project.title"
@@ -104,7 +104,10 @@
 </template>
 
 <script>
-import { projectsData } from "@/shared";
+
+import { createNamespacedHelpers } from 'vuex'
+const { mapGetters, mapActions } = createNamespacedHelpers('projects');
+
 export default {
   props: ["id"],
 
@@ -114,7 +117,7 @@ export default {
   },
   data() {
     return {
-      project: null,
+     // project: null,
       loading: false,
       error: null
     };
@@ -128,20 +131,24 @@ export default {
     $route: "getProject"
   },
   methods: {
+       ...mapActions( ['getProjectAction']),
     async getProject() {
       this.loading = true;
-      this.project = {};
-      this.project = projectsData.getProject(this.id);
-      this.loading = false;
+     // this.project = {};
+      //this.project = projectsData.getProject(this.id);
+     // this.loading = false;
       try {
-        const { project} = await projectsData.getProject(this.id);
-        this.project  = project
+        this.getProjectAction(this.id);
+       // this.project  = project
       } catch (error) {
         this.error = error;
       } finally {
         this.loading = false;
       }
     }
+  },
+  computed: {
+    ...mapGetters( { project: 'project' }),
   }
 };
 </script>
