@@ -1,10 +1,8 @@
-import * as axios from "axios";
-
-import { BASE_API_URI } from "./config";
+import ApiService from "./api.service";
 
 const getUsers = async function() {
   try {
-    const response = await axios.get(`${BASE_API_URI}/users`);
+    const response = await ApiService.get(`/users`);
 
     return parseListResponse(response);
   } catch (error) {
@@ -15,7 +13,7 @@ const getUsers = async function() {
 };
 
 const deleteUser = async function(userId) {
-  await axios.delete(`${BASE_API_URI}/users/${userId}`);
+  await ApiService.delete(`/users/${userId}`);
 };
 
 const parseListResponse = response => {
@@ -23,7 +21,7 @@ const parseListResponse = response => {
   if (!response.data) return [];
   return response.data;
 };
-export const usersData = {
+export const UsersService = {
   getUsers,
   deleteUser
 };

@@ -1,11 +1,9 @@
-import * as axios from "axios";
-
-import { BASE_API_URI } from "./config";
+import ApiService from "./api.service";
 
 const getProjects = async function() {
   try {
-    const response = await axios.get(`${BASE_API_URI}/projects`);   
-    return parseListResponse(response);;
+    const response = await ApiService.get(`/projects`);
+    return parseListResponse(response);
   } catch (error) {
     /* eslint-disable no-console */
     console.log(error);
@@ -14,10 +12,10 @@ const getProjects = async function() {
 };
 const getProject = async function(id) {
   try {
-    const response = await axios.get(`${BASE_API_URI}/projects/${id}`);
+    const response = await ApiService.get(`/projects/${id}`);
 
     let project = parseResponse(response);
-   /*  if (project.createdAt) {
+    /*  if (project.createdAt) {
       project.createdAt = format(parseISO(project.createdAt), inputDateFormat);
     }
     if (project.updatedAt) {
@@ -33,15 +31,15 @@ const getProject = async function(id) {
 };
 const parseListResponse = response => {
   if (response.status !== 200) throw Error(response.message);
-  if (!response.data) return []; 
-  return response.data;;
+  if (!response.data) return [];
+  return response.data;
 };
 const parseResponse = response => {
   if (response.status !== 200) throw Error(response.message);
   if (!response.data) return null;
-  return response.data;;
+  return response.data;
 };
-export const projectsData = {
+export const ProjectsService = {
   getProjects,
   getProject
 };

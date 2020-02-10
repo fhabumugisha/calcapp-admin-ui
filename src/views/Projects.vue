@@ -24,12 +24,11 @@
       </template>
 
       <template v-slot:item.createdAt="{ item }">
-          <span>{{ item.createdAt | moment("DD/MM/YYYY") }}</span>
+        <span>{{ item.createdAt | moment("DD/MM/YYYY") }}</span>
       </template>
-<template v-slot:item.updatedAt="{ item }">
-          <span>{{ item.updatedAt | moment("DD/MM/YYYY") }}</span>
+      <template v-slot:item.updatedAt="{ item }">
+        <span>{{ item.updatedAt | moment("DD/MM/YYYY") }}</span>
       </template>
-      
 
       <template v-slot:item.action="{ item }">
         <v-btn
@@ -48,16 +47,16 @@
 <script>
 //import { projectsData } from "@/shared";
 
-import { createNamespacedHelpers } from 'vuex'
+import { createNamespacedHelpers } from "vuex";
 
-const { mapGetters, mapActions } = createNamespacedHelpers('projects');
+const { mapGetters, mapActions } = createNamespacedHelpers("projects");
 
 export default {
   name: "Projects",
   data() {
     return {
       //totalProjects: 0,
-     // projects: [],
+      // projects: [],
       loading: false,
       options: {},
       search: "",
@@ -86,12 +85,12 @@ export default {
       ]
     };
   },
-  
+
   async mounted() {
     await this.getDataFromApi();
   },
   methods: {
-    ...mapActions( ['getProjectsAction']),
+    ...mapActions(["getProjectsAction"]),
     async getDataFromApi() {
       // console.log("options : ", this.options);
 
@@ -112,7 +111,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters( { projects: 'projects', totalElements : 'totalElements' }),
+    ...mapGetters({ projects: "projects", totalElements: "totalElements" })
   }
 };
 </script>

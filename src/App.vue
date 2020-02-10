@@ -18,6 +18,27 @@
             </v-list-item-content>
           </v-list-item>
         </template>
+        <v-list-item @click.prevent="login" v-if="!activeUser">
+          <v-list-item-action>
+            <v-icon>mdi-login</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              Login
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item @click.prevent="logout" v-else>
+          <v-list-item-action>
+            <v-icon>mdi-logout</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              Logout
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -44,6 +65,8 @@
         <v-btn text to="/projects">Projects</v-btn>
         <v-btn text to="/users">Users</v-btn>
         <v-btn text to="/about">About</v-btn>
+        <v-btn text @click.prevent="login" v-if="!activeUser">Login</v-btn>
+        <v-btn text @click.prevent="logout" v-else>Logout</v-btn>
       </v-toolbar-items>
     </v-app-bar>
     <v-content>
@@ -54,6 +77,7 @@
 
     <v-footer app absolute color="primary lighten-1">
       <v-col class="text-center" cols="12">
+        <span v-if="activeUser">Welcome {{ activeUser.name }} -</span>
         {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
       </v-col>
     </v-footer>
@@ -79,7 +103,28 @@ export default {
       "fab fa-google-plus",
       "fab fa-linkedin",
       "fab fa-instagram"
-    ]
-  })
+    ],
+    activeUser: null
+  }),
+  async created() {
+    await this.refreshActiveUser();
+  },
+  watch: {
+    // everytime a route is changed refresh the activeUser
+    $route: "refreshActiveUser"
+  },
+  methods: {
+    login() {
+      this.$auth.loginRedirect();
+    },
+    async refreshActiveUser() {
+      this.activeUser = await this.$auth.getUser();
+    },
+    async logout() {
+      await this.$auth.logout();
+      await this.refreshActiveUser();
+      this.$router.push("/");
+    }
+  }
 };
 </script>

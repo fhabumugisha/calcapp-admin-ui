@@ -19,11 +19,11 @@
       :items="users"
       :search="search"
     >
-    <template v-slot:item.createdAt="{ item }">
-          <span>{{ item.createdAt | moment("DD/MM/YYYY") }}</span>
+      <template v-slot:item.createdAt="{ item }">
+        <span>{{ item.createdAt | moment("DD/MM/YYYY") }}</span>
       </template>
-<template v-slot:item.updatedAt="{ item }">
-          <span>{{ item.updatedAt | moment("DD/MM/YYYY") }}</span>
+      <template v-slot:item.updatedAt="{ item }">
+        <span>{{ item.updatedAt | moment("DD/MM/YYYY") }}</span>
       </template>
       <template v-slot:item.action="{ item }">
         <v-icon small @click="askToDelete(item)">mdi-delete</v-icon>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { usersData } from "@/shared";
+import { UsersService } from "@/services";
 import Modal from "@/components/Modal.vue";
 
 export default {
@@ -77,10 +77,10 @@ export default {
       this.loading = true;
       this.items = [];
       this.loadingText = "Getting the users, please be patient";
-      const { users, totalItems } = await usersData.getUsers();
+      const { users, totalItems } = await UsersService.getUsers();
       this.users = users;
       //console.log('users', this.users);
-      
+
       this.totalUsers = totalItems;
       this.loadingText = "";
       this.loading = false;
@@ -95,7 +95,7 @@ export default {
     async deleteUser() {
       this.closeModal();
       if (this.userToDelete) {
-        await usersData.deleteUser(this.userToDelete._id);
+        await UsersService.deleteUser(this.userToDelete._id);
       }
       await this.getDataFromApi();
     }

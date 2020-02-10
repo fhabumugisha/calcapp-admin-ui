@@ -8,7 +8,7 @@
         <v-row justify="center">
           <v-col cols="12" sm="10" md="8" lg="6">
             <v-card ref="form">
-              <v-card-title>Project Details #{{ project.id }}</v-card-title>
+              <v-card-title>Project Details #{{ project._id }}</v-card-title>
               <v-card-text>
                 <v-text-field
                   v-model="project.title"
@@ -21,6 +21,13 @@
                   label="Type"
                   outlined
                   readonly
+                ></v-text-field>
+                <v-text-field
+                  v-model="project.totalAmount"
+                  label="Total amount"
+                  outlined
+                  readonly
+                  suffix="€"
                 ></v-text-field>
                 <v-text-field
                   v-model="project.createdAt"
@@ -36,16 +43,18 @@
                 <v-divider></v-divider>
                 <div v-if="project.type === 'Budget'">
                   <h2>Categories</h2>
+                  <br />
                   <v-expansion-panels focusable>
                     <v-expansion-panel
                       v-for="(category, i) in project.categories"
                       :key="i"
                     >
                       <v-expansion-panel-header>
-                        {{ category.title }}
+                        {{ category.title }} (
+                        {{ category.items.length }} items) - Total amount :
+                        {{ category.totalAmount | currency }}
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
-                        Items : {{ category.items.length }}
                         <v-simple-table>
                           <template v-slot:default>
                             <thead>
@@ -59,7 +68,7 @@
                               <tr v-for="item in category.items" :key="item.id">
                                 <td>{{ item.title }}</td>
                                 <td>{{ item.description }}</td>
-                                <td>{{ item.amount }}</td>
+                                <td>{{ item.amount | currency }}</td>
                               </tr>
                             </tbody>
                           </template>
@@ -83,7 +92,7 @@
                         <tr v-for="item in project.items" :key="item.id">
                           <td>{{ item.title }}</td>
                           <td>{{ item.description }}</td>
-                          <td>{{ item.amount }}</td>
+                          <td>{{ item.amount | currency }}</td>
                         </tr>
                       </tbody>
                     </template>
@@ -104,9 +113,8 @@
 </template>
 
 <script>
-
-import { createNamespacedHelpers } from 'vuex'
-const { mapGetters, mapActions } = createNamespacedHelpers('projects');
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapActions } = createNamespacedHelpers("projects");
 
 export default {
   props: ["id"],
@@ -117,7 +125,7 @@ export default {
   },
   data() {
     return {
-     // project: null,
+      // project: null,
       loading: false,
       error: null
     };
@@ -131,15 +139,15 @@ export default {
     $route: "getProject"
   },
   methods: {
-       ...mapActions( ['getProjectAction']),
+    ...mapActions(["getProjectAction"]),
     async getProject() {
       this.loading = true;
-     // this.project = {};
+      // this.project = {};
       //this.project = projectsData.getProject(this.id);
-     // this.loading = false;
+      // this.loading = false;
       try {
         this.getProjectAction(this.id);
-       // this.project  = project
+        // this.project  = project
       } catch (error) {
         this.error = error;
       } finally {
@@ -148,7 +156,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters( { project: 'project' }),
+    ...mapGetters({ project: "project" })
   }
 };
 </script>

@@ -1,4 +1,4 @@
-import { projectsData } from "@/shared";
+import { ProjectsService } from "@/services";
 
 import { GET_PROJECTS, GET_PROJECT } from "./mutation-types";
 
@@ -13,24 +13,24 @@ export default {
   actions: {
     async getProjectsAction({ commit }) {
       try {
-        const payload = await projectsData.getProjects();
+        const payload = await ProjectsService.getProjects();
 
         commit(GET_PROJECTS, payload);
         return payload;
       } catch (error) {
-        return console.log(error);
+        return error;
       }
     },
     async getProjectAction({ commit }, id) {
-        try {
-          const payload = await projectsData.getProject(id);
-  
-          commit(GET_PROJECT, payload);
-          return payload;
-        } catch (error) {
-          return console.log(error);
-        }
+      try {
+        const payload = await ProjectsService.getProject(id);
+
+        commit(GET_PROJECT, payload);
+        return payload;
+      } catch (error) {
+        return error;
       }
+    }
   },
   mutations: {
     [GET_PROJECTS](state, payload) {
@@ -38,8 +38,8 @@ export default {
       state.totalElements = payload.totalItems;
     },
     [GET_PROJECT](state, payload) {
-        state.project = payload.project;
-      }
+      state.project = payload.project;
+    }
   },
   getters: {
     projects: state => {
@@ -49,7 +49,7 @@ export default {
       return state.totalElements;
     },
     project: state => {
-        return state.project;
-      },
+      return state.project;
+    }
   }
 };
