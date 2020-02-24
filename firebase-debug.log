@@ -1,0 +1,76 @@
+[debug] [2020-02-24T12:41:38.652Z] ----------------------------------------------------------------------
+[debug] [2020-02-24T12:41:38.655Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\fahabumu\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2020-02-24T12:41:38.655Z] CLI Version:   7.12.1
+[debug] [2020-02-24T12:41:38.655Z] Platform:      win32
+[debug] [2020-02-24T12:41:38.655Z] Node Version:  v12.14.1
+[debug] [2020-02-24T12:41:38.658Z] Time:          Mon Feb 24 2020 13:41:38 GMT+0100 (GMT+01:00)
+[debug] [2020-02-24T12:41:38.659Z] ----------------------------------------------------------------------
+[debug] [2020-02-24T12:41:38.659Z] 
+[debug] [2020-02-24T12:41:38.680Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-02-24T12:41:38.680Z] > authorizing via signed-in user
+[debug] [2020-02-24T12:41:38.680Z] [iam] checking project calcapp-admin-ui for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-02-24T12:41:38.682Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-02-24T12:41:38.682Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-02-24T12:41:39.049Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-24T12:41:39.074Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/calcapp-admin-ui:testIamPermissions  
+
+[debug] [2020-02-24T12:41:40.857Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-24T12:41:40.859Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/calcapp-admin-ui  
+ 
+[debug] [2020-02-24T12:41:42.907Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'calcapp-admin-ui'...
+[info] 
+[info] i  deploying hosting
+[debug] [2020-02-24T12:41:42.937Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/calcapp-admin-ui/versions  
+
+[debug] [2020-02-24T12:41:44.861Z] <<< HTTP RESPONSE 200
+[info] i  hosting[calcapp-admin-ui]: beginning deploy...
+[info] i  hosting[calcapp-admin-ui]: found 17 files in dist
+[debug] [2020-02-24T12:41:45.306Z] [hosting] hash cache [ZGlzdA] stored for 17 files
+[debug] [2020-02-24T12:41:45.307Z] [hosting][hash queue][FINAL]
+[debug] [2020-02-24T12:41:45.307Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/calcapp-admin-ui/versions/a73e382248ad1b0c:populateFiles  
+ <request body omitted>
+[debug] [2020-02-24T12:41:46.800Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-24T12:41:46.820Z] [hosting][populate queue][FINAL]
+[debug] [2020-02-24T12:41:46.820Z] [hosting] uploads queued: 11
+[debug] [2020-02-24T12:41:50.769Z] [hosting][upload queue][FINAL]
+[info] +  hosting[calcapp-admin-ui]: file upload complete
+[debug] [2020-02-24T12:41:50.776Z] [hosting] deploy completed after 5911ms
+[debug] [2020-02-24T12:41:50.780Z] [
+  {
+    "config": {
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "calcapp-admin-ui"
+    },
+    "site": "calcapp-admin-ui",
+    "version": "sites/calcapp-admin-ui/versions/a73e382248ad1b0c"
+  }
+]
+[info] i  hosting[calcapp-admin-ui]: finalizing version...
+[debug] [2020-02-24T12:41:50.783Z] >>> HTTP REQUEST PATCH https://firebasehosting.googleapis.com/v1beta1/sites/calcapp-admin-ui/versions/a73e382248ad1b0c?updateMask=status  
+
+[debug] [2020-02-24T12:41:52.019Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-24T12:41:52.020Z] [hosting] finalized version for calcapp-admin-ui:
+[info] +  hosting[calcapp-admin-ui]: version finalized
+[info] i  hosting[calcapp-admin-ui]: releasing new version...
+[debug] [2020-02-24T12:41:52.023Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/calcapp-admin-ui/releases?version_name=sites/calcapp-admin-ui/versions/a73e382248ad1b0c  
+
+[debug] [2020-02-24T12:41:52.536Z] Error: write EPROTO 108448:error:1409442E:SSL routines:ssl3_read_bytes:tlsv1 alert protocol version:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1544:SSL alert number 70
+
+    at WriteWrap.onWriteComplete [as oncomplete] (internal/stream_base_commons.js:87:16)
+[error] 
+[error] Error: Server Error. write EPROTO 108448:error:1409442E:SSL routines:ssl3_read_bytes:tlsv1 alert protocol version:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1544:SSL alert number 70
+

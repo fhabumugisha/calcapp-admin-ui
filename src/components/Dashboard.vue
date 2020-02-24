@@ -4,7 +4,8 @@
 
     <p>
       <router-link to="/projects">Projects</router-link> |
-      <router-link to="/users">Users</router-link>
+      <router-link to="/users">Users</router-link> |
+      <router-link to="/notifications">Notifications</router-link>
     </p>
   </div>
 </template>

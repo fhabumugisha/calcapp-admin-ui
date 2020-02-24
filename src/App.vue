@@ -64,7 +64,7 @@
       <v-toolbar-items>
         <v-btn text to="/projects">Projects</v-btn>
         <v-btn text to="/users">Users</v-btn>
-        <v-btn text to="/about">About</v-btn>
+        <v-btn text to="/notifications">Notifications</v-btn>
         <v-btn text @click.prevent="login" v-if="!activeUser">Login</v-btn>
         <v-btn text @click.prevent="logout" v-else>Logout</v-btn>
       </v-toolbar-items>
@@ -95,7 +95,7 @@ export default {
     items: [
       { icon: "mdi-library-books", text: "Projects", path: "/projects" },
       { icon: "mdi-contacts", text: "Users", path: "/users" },
-      { icon: "mdi-at", text: "About", path: "/about" }
+      { icon: "mdi-bell-ring", text: "Notifications", path: "/notifications" }
     ],
     icons: [
       "fab fa-facebook",
